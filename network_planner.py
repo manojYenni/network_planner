@@ -53,13 +53,13 @@ def plot_node_markers():
 		from_coordinates = from_coordinates.split(",")
 		marker_color = get_marker_color(maps_data_df.loc[i,"FROM NODE TYPE"])
 		popup_message = maps_data_df.loc[i,"FROM"] + "(" + maps_data_df.loc[i,"FROM NODE TYPE"] + ")"
-		feature_group.add_child(folium.Marker(location=from_coordinates,popup=maps_data_df.loc[i,"FROM"],icon=folium.Icon(color=marker_color)))
+		feature_group.add_child(folium.Marker(location=from_coordinates,popup=popup_message,icon=folium.Icon(color=marker_color)))
 
 		to_coordinates = maps_metadata_df.loc[i,"TO_COORDINATES"]
 		to_coordinates = to_coordinates.split(",")
 		marker_color = get_marker_color(maps_data_df.loc[i,"TO NODE TYPE"])
 		popup_message = maps_data_df.loc[i,"TO"] + "(" + maps_data_df.loc[i,"TO NODE TYPE"] + ")"
-		feature_group.add_child(folium.Marker(location=to_coordinates,popup=maps_data_df.loc[i,"TO"],icon=folium.Icon(color=marker_color)))
+		feature_group.add_child(folium.Marker(location=to_coordinates,popup=popup_message,icon=folium.Icon(color=marker_color)))
 
 		coordinates_temp = from_coordinates + to_coordinates
 		coordinates_float = list(map(lambda x: float(x), coordinates_temp))
@@ -80,8 +80,8 @@ elif choice == "n":
 else:
 	print("invalid choice")
 
-
-feature_group.add_child(folium.LatLngPopup())
+# TODO
+#feature_group.add_child(folium.LatLngPopup())
 
 Main_map_object.add_child(feature_group)
 Main_map_object.save("maps1.html")
