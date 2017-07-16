@@ -16,6 +16,9 @@ Default_location = Bengaluru_location
 Main_map_object = folium.Map(location=Default_location, tiles="Mapbox Bright")
 feature_group = folium.FeatureGroup(name = "my map")
 circular_marker_radius_in_pixel = 6
+popup_width = 150
+popup_height = 60
+iframe_max_width = 500
 nom = geopy.Nominatim()
 
 ###################### FUNCTION DEFINITIONS ####################################
@@ -49,17 +52,24 @@ def update_node_location_in_excel():
 
 def plot_node_markers():
 	for i in maps_data_df.index:
+
 		from_coordinates = maps_metadata_df.loc[i,"FROM_COORDINATES"]
 		from_coordinates = from_coordinates.split(",")
+
 		marker_color = get_marker_color(maps_data_df.loc[i,"FROM NODE TYPE"])
-		popup_message = maps_data_df.loc[i,"FROM"] + "(" + maps_data_df.loc[i,"FROM NODE TYPE"] + ")"
-		feature_group.add_child(folium.Marker(location=from_coordinates,popup=popup_message,icon=folium.Icon(color=marker_color)))
+		popup_html = """<b>""" + maps_data_df.loc[i,"FROM"] + """(""" + maps_data_df.loc[i,"FROM NODE TYPE"] + """)""" + """</b><br>NODE ID: """ + str(maps_data_df.loc[i,"FROM NODE ID"])
+		iframe = folium.IFrame(html=popup_html, width=popup_width, height=popup_height)
+		popup_object = folium.Popup(iframe, max_width=iframe_max_width)
+		feature_group.add_child(folium.Marker(location=from_coordinates,popup=popup_object,icon=folium.Icon(color=marker_color)))
 
 		to_coordinates = maps_metadata_df.loc[i,"TO_COORDINATES"]
 		to_coordinates = to_coordinates.split(",")
+
 		marker_color = get_marker_color(maps_data_df.loc[i,"TO NODE TYPE"])
-		popup_message = maps_data_df.loc[i,"TO"] + "(" + maps_data_df.loc[i,"TO NODE TYPE"] + ")"
-		feature_group.add_child(folium.Marker(location=to_coordinates,popup=popup_message,icon=folium.Icon(color=marker_color)))
+		popup_html = """<b>""" + maps_data_df.loc[i,"TO"] + """(""" + maps_data_df.loc[i,"TO NODE TYPE"] + """)""" + """</b><br>NODE ID: """ + str(maps_data_df.loc[i,"TO NODE ID"])
+		iframe = folium.IFrame(html=popup_html, width=popup_width, height=popup_height)
+		popup_object = folium.Popup(iframe, max_width=iframe_max_width)
+		feature_group.add_child(folium.Marker(location=to_coordinates,popup=popup_object,icon=folium.Icon(color=marker_color)))
 
 		coordinates_temp = from_coordinates + to_coordinates
 		coordinates_float = list(map(lambda x: float(x), coordinates_temp))
