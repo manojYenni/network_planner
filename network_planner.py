@@ -30,37 +30,36 @@ def get_marker_color(node_type):
 		return "blue"
 
 def update_metadata_to_excel(dataframe):
-    book = load_workbook('master_nodes.xlsx')
-    writer = pandas.ExcelWriter('master_nodes.xlsx', engine='openpyxl')
-    writer.book = book
-    writer.sheets = dict((ws.title, ws) for ws in book.worksheets)
-    dataframe.to_excel(writer, "Nodes_metadata")
-    writer.save()
+	book = load_workbook('master_nodes.xlsx')
+	writer = pandas.ExcelWriter('master_nodes.xlsx', engine='openpyxl')
+	writer.book = book
+	writer.sheets = dict((ws.title, ws) for ws in book.worksheets)
+	dataframe.to_excel(writer, "Nodes_metadata")
+	writer.save()
 
 def update_node_location_in_excel():
-    maps_metadata_df["FROM_EDITED"] = maps_data_df["FROM"] + ", India"
-    maps_metadata_df["FROM_COORDINATES"]= maps_metadata_df["FROM_EDITED"].apply(nom.geocode)
-    maps_metadata_df["FROM_COORDINATES"] = maps_metadata_df["FROM_COORDINATES"].apply(lambda x:str(x.latitude) + "," + str(x.longitude) if x != None else None )
+	maps_metadata_df["FROM_EDITED"] = maps_data_df["FROM"] + ", India"
+	maps_metadata_df["FROM_COORDINATES"]= maps_metadata_df["FROM_EDITED"].apply(nom.geocode)
+	maps_metadata_df["FROM_COORDINATES"] = maps_metadata_df["FROM_COORDINATES"].apply(lambda x:str(x.latitude) + "," + str(x.longitude) if x != None else None )
 
-    maps_metadata_df["TO_EDITED"] = maps_data_df["TO"] + ", India"
-    maps_metadata_df["TO_COORDINATES"]= maps_metadata_df["TO_EDITED"].apply(nom.geocode)
-    maps_metadata_df["TO_COORDINATES"] = maps_metadata_df["TO_COORDINATES"].apply(lambda x:str(x.latitude) + "," + str(x.longitude) if x != None else None )
-    update_metadata_to_excel(maps_metadata_df)
+	maps_metadata_df["TO_EDITED"] = maps_data_df["TO"] + ", India"
+	maps_metadata_df["TO_COORDINATES"]= maps_metadata_df["TO_EDITED"].apply(nom.geocode)
+	maps_metadata_df["TO_COORDINATES"] = maps_metadata_df["TO_COORDINATES"].apply(lambda x:str(x.latitude) + "," + str(x.longitude) if x != None else None )
+	update_metadata_to_excel(maps_metadata_df)
 
 def plot_node_markers():
-    for i in maps_data_df.index:
-        from_coordinates = maps_metadata_df.loc[i,"FROM_COORDINATES"]
-        from_coordinates = from_coordinates.split(",")
-        marker_color = get_marker_color(maps_data_df.loc[i,"FROM NODE TYPE"])
-        popup_message = maps_data_df.loc[i,"FROM"] + "(" + maps_data_df.loc[i,"FROM NODE TYPE"] + ")"
-        feature_group.add_child(folium.Marker(location=from_coordinates,popup=maps_data_df.loc[i,"FROM"],icon=folium.Icon(color=marker_color)))
+	for i in maps_data_df.index:
+		from_coordinates = maps_metadata_df.loc[i,"FROM_COORDINATES"]
+		from_coordinates = from_coordinates.split(",")
+		marker_color = get_marker_color(maps_data_df.loc[i,"FROM NODE TYPE"])
+		popup_message = maps_data_df.loc[i,"FROM"] + "(" + maps_data_df.loc[i,"FROM NODE TYPE"] + ")"
+		feature_group.add_child(folium.Marker(location=from_coordinates,popup=maps_data_df.loc[i,"FROM"],icon=folium.Icon(color=marker_color)))
 
-        to_coordinates = maps_metadata_df.loc[i,"TO_COORDINATES"]
-        to_coordinates = to_coordinates.split(",")
-        marker_color = get_marker_color(maps_data_df.loc[i,"TO NODE TYPE"])
-        popup_message = maps_data_df.loc[i,"TO"] + "(" + maps_data_df.loc[i,"TO NODE TYPE"] + ")"
-        feature_group.add_child(folium.Marker(location=to_coordinates,popup=maps_data_df.loc[i,"TO"],icon=folium.Icon(color=marker_color)))
-
+		to_coordinates = maps_metadata_df.loc[i,"TO_COORDINATES"]
+		to_coordinates = to_coordinates.split(",")
+		marker_color = get_marker_color(maps_data_df.loc[i,"TO NODE TYPE"])
+		popup_message = maps_data_df.loc[i,"TO"] + "(" + maps_data_df.loc[i,"TO NODE TYPE"] + ")"
+		feature_group.add_child(folium.Marker(location=to_coordinates,popup=maps_data_df.loc[i,"TO"],icon=folium.Icon(color=marker_color)))
 
 ###################### MAIN ####################################################
 choice = input("Do you want to re-plot the coordinates?[y/n]: ")
