@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<head>    
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <script>L_PREFER_CANVAS = false; L_NO_TOUCH = false; L_DISABLE_3D = false;</script>
+    <script src="https://unpkg.com/leaflet@1.0.1/dist/leaflet.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.0.0/leaflet.markercluster-src.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.0.0/leaflet.markercluster.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.1/dist/leaflet.css" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.0.0/MarkerCluster.Default.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.0.0/MarkerCluster.css" />
+    <link rel="stylesheet" href="https://rawgit.com/python-visualization/folium/master/folium/templates/leaflet.awesome.rotate.css" />
+    <style>html, body {width: 100%;height: 100%;margin: 0;padding: 0;}</style>
+    <style>#map {position:absolute;top:0;bottom:0;right:0;left:0;}</style>
+    
+            <style> #map_83bd543a717c4a62a0ceb03b0b6ea347 {
+                position : relative;
+                width : 100.0%;
+                height: 100.0%;
+                left: 0.0%;
+                top: 0.0%;
+                }
+            </style>
+        
+</head>
+<body>    
+    
+            <div class="folium-map" id="map_83bd543a717c4a62a0ceb03b0b6ea347" ></div>
+        
+</body>
+<script>    
+    
+
+            
+                var southWest = L.latLng(-90, -180);
+                var northEast = L.latLng(90, 180);
+                var bounds = L.latLngBounds(southWest, northEast);
+            
+
+            var map_83bd543a717c4a62a0ceb03b0b6ea347 = L.map(
+                                  'map_83bd543a717c4a62a0ceb03b0b6ea347',
+                                  {center: [12.9791198,77.5912997],
+                                  zoom: 10,
+                                  maxBounds: bounds,
+                                  layers: [],
+                                  worldCopyJump: false,
+                                  crs: L.CRS.EPSG3857
+                                 });
+            
+        
+    
+            var tile_layer_d05bf81e78bf4e5eafc1ce6ff713dca5 = L.tileLayer(
+                'https://{s}.tiles.mapbox.com/v3/mapbox.world-bright/{z}/{x}/{y}.png',
+                {
+                    maxZoom: 18,
+                    minZoom: 1,
+                    continuousWorld: false,
+                    noWrap: false,
+                    attribution: 'Map tiles by <a href="http://www.mapbox.com/m">Mapbox</a> Data by <a href="http://openstreetmap.org">OpenStreetMap</a>, under <a href="http://creativecommons.org/licenses/by-sa/3.0">CC BY SA</a>.',
+                    detectRetina: false
+                    }
+                ).addTo(map_83bd543a717c4a62a0ceb03b0b6ea347);
+
+        
+    
+            var feature_group_4287afd2f35f4d069880607b20248c96 = L.featureGroup(
+                ).addTo(map_83bd543a717c4a62a0ceb03b0b6ea347);
+        
+    
+
+            var marker_9c01f1867ea843dea80f999f4d01f2d7 = L.marker(
+                [[,1],
+                {
+                    icon: new L.Icon.Default()
+                    }
+                )
+                .addTo(feature_group_4287afd2f35f4d069880607b20248c96);
+            
+    
+
+                var icon_31c3b20e19c74b2db5a12d8a4ad7c74a = L.AwesomeMarkers.icon({
+                    icon: 'info-sign',
+                    iconColor: 'white',
+                    markerColor: 'pink',
+                    prefix: 'glyphicon',
+                    extraClasses: 'fa-rotate-0'
+                    });
+                marker_9c01f1867ea843dea80f999f4d01f2d7.setIcon(icon_31c3b20e19c74b2db5a12d8a4ad7c74a);
+            
+    
+            var popup_d2b286a6bf16461eb8e7a62469b9fa6a = L.popup({maxWidth: '300'});
+
+            
+                var html_34217d89300f46d28b947f54e1c7c68a = $('<div id="html_34217d89300f46d28b947f54e1c7c68a" style="width: 100.0%; height: 100.0%;">Hyderabad(S)</div>')[0];
+                popup_d2b286a6bf16461eb8e7a62469b9fa6a.setContent(html_34217d89300f46d28b947f54e1c7c68a);
+            
+
+            marker_9c01f1867ea843dea80f999f4d01f2d7.bindPopup(popup_d2b286a6bf16461eb8e7a62469b9fa6a);
+
+            
+        
+    
+
+            var marker_abb9db9982bf442b8207d25716188e7f = L.marker(
+                [[,1],
+                {
+                    icon: new L.Icon.Default()
+                    }
+                )
+                .addTo(feature_group_4287afd2f35f4d069880607b20248c96);
+            
+    
+
+                var icon_a10e5aa704c04ce4b0e55641c358038a = L.AwesomeMarkers.icon({
+                    icon: 'info-sign',
+                    iconColor: 'white',
+                    markerColor: 'green',
+                    prefix: 'glyphicon',
+                    extraClasses: 'fa-rotate-0'
+                    });
+                marker_abb9db9982bf442b8207d25716188e7f.setIcon(icon_a10e5aa704c04ce4b0e55641c358038a);
+            
+    
+            var popup_c4950706422e422481ecb2d95ee63f4c = L.popup({maxWidth: '300'});
+
+            
+                var html_d30a48c9270b4caa875daf8590586e18 = $('<div id="html_d30a48c9270b4caa875daf8590586e18" style="width: 100.0%; height: 100.0%;">Mumbai(M)</div>')[0];
+                popup_c4950706422e422481ecb2d95ee63f4c.setContent(html_d30a48c9270b4caa875daf8590586e18);
+            
+
+            marker_abb9db9982bf442b8207d25716188e7f.bindPopup(popup_c4950706422e422481ecb2d95ee63f4c);
+
+            
+        
+    
+
+            var marker_58fdd489522d4ac2936cb5662f8eb53f = L.marker(
+                [[,1],
+                {
+                    icon: new L.Icon.Default()
+                    }
+                )
+                .addTo(feature_group_4287afd2f35f4d069880607b20248c96);
+            
+    
+
+                var icon_589711aa88a649779b526f622049f39c = L.AwesomeMarkers.icon({
+                    icon: 'info-sign',
+                    iconColor: 'white',
+                    markerColor: 'red',
+                    prefix: 'glyphicon',
+                    extraClasses: 'fa-rotate-0'
+                    });
+                marker_58fdd489522d4ac2936cb5662f8eb53f.setIcon(icon_589711aa88a649779b526f622049f39c);
+            
+    
+            var popup_9e53b4e49b1644e5beb016f740711cb4 = L.popup({maxWidth: '300'});
+
+            
+                var html_1e25270bd8994f23999a1863193ada5c = $('<div id="html_1e25270bd8994f23999a1863193ada5c" style="width: 100.0%; height: 100.0%;">Chennai(T)</div>')[0];
+                popup_9e53b4e49b1644e5beb016f740711cb4.setContent(html_1e25270bd8994f23999a1863193ada5c);
+            
+
+            marker_58fdd489522d4ac2936cb5662f8eb53f.bindPopup(popup_9e53b4e49b1644e5beb016f740711cb4);
+
+            
+        
+    
+
+            var marker_63be55ffa3794c4085284601c5850145 = L.marker(
+                [[,9],
+                {
+                    icon: new L.Icon.Default()
+                    }
+                )
+                .addTo(feature_group_4287afd2f35f4d069880607b20248c96);
+            
+    
+
+                var icon_637b90f9dca04bd6a778efdd6f950dff = L.AwesomeMarkers.icon({
+                    icon: 'info-sign',
+                    iconColor: 'white',
+                    markerColor: 'pink',
+                    prefix: 'glyphicon',
+                    extraClasses: 'fa-rotate-0'
+                    });
+                marker_63be55ffa3794c4085284601c5850145.setIcon(icon_637b90f9dca04bd6a778efdd6f950dff);
+            
+    
+            var popup_9f1b3af0d4a64f9da84850f44da0488c = L.popup({maxWidth: '300'});
+
+            
+                var html_3f5f37936ff943a99b6eefafd6662d6d = $('<div id="html_3f5f37936ff943a99b6eefafd6662d6d" style="width: 100.0%; height: 100.0%;">Kochi(S)</div>')[0];
+                popup_9f1b3af0d4a64f9da84850f44da0488c.setContent(html_3f5f37936ff943a99b6eefafd6662d6d);
+            
+
+            marker_63be55ffa3794c4085284601c5850145.bindPopup(popup_9f1b3af0d4a64f9da84850f44da0488c);
+
+            
+        
+    
+
+            var marker_ed202323600341879fd56f6e326ad06b = L.marker(
+                [[,1],
+                {
+                    icon: new L.Icon.Default()
+                    }
+                )
+                .addTo(feature_group_4287afd2f35f4d069880607b20248c96);
+            
+    
+
+                var icon_c772ace3225148939b772793ce437c82 = L.AwesomeMarkers.icon({
+                    icon: 'info-sign',
+                    iconColor: 'white',
+                    markerColor: 'blue',
+                    prefix: 'glyphicon',
+                    extraClasses: 'fa-rotate-0'
+                    });
+                marker_ed202323600341879fd56f6e326ad06b.setIcon(icon_c772ace3225148939b772793ce437c82);
+            
+    
+            var popup_30f294420c424987bae98ba6c9997650 = L.popup({maxWidth: '300'});
+
+            
+                var html_3631870b656c4abd9d174468b9a30337 = $('<div id="html_3631870b656c4abd9d174468b9a30337" style="width: 100.0%; height: 100.0%;">Bengaluru(L)</div>')[0];
+                popup_30f294420c424987bae98ba6c9997650.setContent(html_3631870b656c4abd9d174468b9a30337);
+            
+
+            marker_ed202323600341879fd56f6e326ad06b.bindPopup(popup_30f294420c424987bae98ba6c9997650);
+
+            
+        
+</script>
