@@ -57,8 +57,18 @@ def plot_node_markers():
         feature_group.add_child(folium.Marker(location=coordinates,popup=maps_data_df.loc[i,"FROM"],icon=folium.Icon(color=marker_color)))
 
 ###################### MAIN ####################################################
-# update_node_location_in_excel()
+choice = input("Do you want to re-plot the coordinates?[y/n]: ")
 
-plot_node_markers()
+if choice == "y":
+	print("Updating location details..")
+	update_node_location_in_excel()
+	print("plotting markers..")
+	plot_node_markers()
+elif choice == "n":
+	print("plotting markers..")
+	plot_node_markers()
+else:
+	print("invalid choice")
+
 Main_map_object.add_child(feature_group)
 Main_map_object.save("maps1.html")
