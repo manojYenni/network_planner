@@ -140,3 +140,7 @@ $RECYCLE.BIN/
 
 #Application related
 *.html
+
+
+#Editplus
+*.bak
