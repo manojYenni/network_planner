@@ -56,6 +56,13 @@ def plot_node_markers():
         popup_message = maps_data_df.loc[i,"FROM"] + "(" + maps_data_df.loc[i,"FROM NODE TYPE"] + ")"
         feature_group.add_child(folium.Marker(location=coordinates,popup=maps_data_df.loc[i,"FROM"],icon=folium.Icon(color=marker_color)))
 
+        coordinates = maps_metadata_df.loc[i,"TO_COORDINATES"]
+        coordinates = coordinates.split(",")
+        marker_color = get_marker_color(maps_data_df.loc[i,"TO NODE TYPE"])
+        popup_message = maps_data_df.loc[i,"TO"] + "(" + maps_data_df.loc[i,"TO NODE TYPE"] + ")"
+        feature_group.add_child(folium.Marker(location=coordinates,popup=maps_data_df.loc[i,"TO"],icon=folium.Icon(color=marker_color)))
+
+
 ###################### MAIN ####################################################
 choice = input("Do you want to re-plot the coordinates?[y/n]: ")
 
