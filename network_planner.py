@@ -61,6 +61,11 @@ def plot_node_markers():
 		popup_message = maps_data_df.loc[i,"TO"] + "(" + maps_data_df.loc[i,"TO NODE TYPE"] + ")"
 		feature_group.add_child(folium.Marker(location=to_coordinates,popup=maps_data_df.loc[i,"TO"],icon=folium.Icon(color=marker_color)))
 
+		coordinates_temp = from_coordinates + to_coordinates
+		coordinates_float = list(map(lambda x: float(x), coordinates_temp))
+		polyline_coordinates = [ coordinates_float[0:2], coordinates_float[2:4]]
+		feature_group.add_child(folium.PolyLine(locations=polyline_coordinates,weight=5))
+
 ###################### MAIN ####################################################
 choice = input("Do you want to re-plot the coordinates?[y/n]: ")
 
@@ -75,8 +80,8 @@ elif choice == "n":
 else:
 	print("invalid choice")
 
-# TODO
-# feature_group.add_child(folium.LatLngPopup("self"))
+
+feature_group.add_child(folium.LatLngPopup())
 
 Main_map_object.add_child(feature_group)
 Main_map_object.save("maps1.html")
