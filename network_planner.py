@@ -74,7 +74,10 @@ def plot_node_markers():
 		coordinates_temp = from_coordinates + to_coordinates
 		coordinates_float = list(map(lambda x: float(x), coordinates_temp))
 		polyline_coordinates = [ coordinates_float[0:2], coordinates_float[2:4]]
-		feature_group.add_child(folium.PolyLine(locations=polyline_coordinates,weight=5))
+		popup_html = """D: """ + str(maps_data_df.loc[i,"DISTANCE"]) + """ km""" + """<br>LINK ID: """ + str(maps_data_df.loc[i,"LINK ID"])
+		iframe = folium.IFrame(html=popup_html, width=popup_width, height=popup_height)
+		popup_object = folium.Popup(iframe, max_width=iframe_max_width)
+		feature_group.add_child(folium.PolyLine(locations=polyline_coordinates,weight=5,popup=popup_object))
 
 ###################### MAIN ####################################################
 choice = input("Do you want to re-plot the coordinates?[y/n]: ")
