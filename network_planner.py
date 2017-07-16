@@ -48,19 +48,18 @@ def update_node_location_in_excel():
     update_metadata_to_excel(maps_metadata_df)
 
 def plot_node_markers():
-
     for i in maps_data_df.index:
-        coordinates = maps_metadata_df.loc[i,"FROM_COORDINATES"]
-        coordinates = coordinates.split(",")
+        from_coordinates = maps_metadata_df.loc[i,"FROM_COORDINATES"]
+        from_coordinates = from_coordinates.split(",")
         marker_color = get_marker_color(maps_data_df.loc[i,"FROM NODE TYPE"])
         popup_message = maps_data_df.loc[i,"FROM"] + "(" + maps_data_df.loc[i,"FROM NODE TYPE"] + ")"
-        feature_group.add_child(folium.Marker(location=coordinates,popup=maps_data_df.loc[i,"FROM"],icon=folium.Icon(color=marker_color)))
+        feature_group.add_child(folium.Marker(location=from_coordinates,popup=maps_data_df.loc[i,"FROM"],icon=folium.Icon(color=marker_color)))
 
-        coordinates = maps_metadata_df.loc[i,"TO_COORDINATES"]
-        coordinates = coordinates.split(",")
+        to_coordinates = maps_metadata_df.loc[i,"TO_COORDINATES"]
+        to_coordinates = to_coordinates.split(",")
         marker_color = get_marker_color(maps_data_df.loc[i,"TO NODE TYPE"])
         popup_message = maps_data_df.loc[i,"TO"] + "(" + maps_data_df.loc[i,"TO NODE TYPE"] + ")"
-        feature_group.add_child(folium.Marker(location=coordinates,popup=maps_data_df.loc[i,"TO"],icon=folium.Icon(color=marker_color)))
+        feature_group.add_child(folium.Marker(location=to_coordinates,popup=maps_data_df.loc[i,"TO"],icon=folium.Icon(color=marker_color)))
 
 
 ###################### MAIN ####################################################
@@ -76,6 +75,9 @@ elif choice == "n":
 	plot_node_markers()
 else:
 	print("invalid choice")
+
+# TODO
+# feature_group.add_child(folium.LatLngPopup("self"))
 
 Main_map_object.add_child(feature_group)
 Main_map_object.save("maps1.html")
