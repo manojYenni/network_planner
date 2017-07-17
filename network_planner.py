@@ -40,6 +40,16 @@ def get_marker_color(node_type):
 
 # ------------------------------------------------------------------------------
 
+def get_amplifier_color(amplifier_type):
+	if amplifier_type == "A":
+		return '#ff00f6'
+	elif amplifier_type == "B":
+		return "#9400ff"
+	else:
+		return "gray"
+
+# ------------------------------------------------------------------------------
+
 def update_metadata_to_excel(dataframe, sheetname):
 	book = load_workbook('master_nodes.xlsx')
 	writer = pandas.ExcelWriter('master_nodes.xlsx', engine='openpyxl')
@@ -79,7 +89,12 @@ def plot_amplifiers(offset):
 	for i in range(0, number_of_amplifiers):
 		to_coordinates = maps_metadata_df.loc[offset+i,"TO_COORDINATES"]
 		to_coordinates = to_coordinates.split(",")
-		feature_group.add_child(folium.RegularPolygonMarker(to_coordinates,popup="from_original", fill_color='#ff00f6', number_of_sides=3, radius=10,weight=1))
+
+		amplifier_color = get_amplifier_color(maps_data_df.loc[offset+i,"AMPLIFIER TYPE"])
+		popup_html = """<b>""" + maps_data_df.loc[offset+i,"AMPLIFIER TO"] + """(""" + maps_data_df.loc[offset+i,"AMPLIFIER TYPE"] + """)""" + """</b><br>AMP ID: """ + str(maps_data_df.loc[offset+i,"AMPLIFIER ID"])
+		iframe = folium.IFrame(html=popup_html, width=popup_width, height=popup_height)
+		popup_object = folium.Popup(iframe, max_width=iframe_max_width)
+		feature_group.add_child(folium.RegularPolygonMarker(to_coordinates,popup=popup_object, fill_color=amplifier_color, number_of_sides=3, radius=10,weight=1))
 
 # ------------------------------------------------------------------------------
 
