@@ -33,6 +33,8 @@ def get_marker_color(node_type):
 		return "green"
 	elif node_type == "R":
 		return "orange"
+	elif node_type == "L":
+		return "blue"
 	else:
 		return "gray"
 
@@ -120,6 +122,7 @@ def plot_node_markers():
 			popup_object = folium.Popup(iframe, max_width=iframe_max_width)
 			feature_group.add_child(folium.Marker(location=to_coordinates,popup=popup_object,icon=folium.Icon(color=marker_color)))
 
+			#Plotting PolyLines
 			coordinates_temp = from_coordinates + to_coordinates
 			coordinates_float = list(map(lambda x: float(x), coordinates_temp))
 			polyline_coordinates = [ coordinates_float[0:2], coordinates_float[2:4]]
@@ -130,6 +133,26 @@ def plot_node_markers():
 
 		elif maps_data_df.loc[i,"AMPLIFIERS"] != "padding":
 			print("Plotting amplifiers for "+ maps_data_df.loc[i,"FROM"] )
+
+			from_coordinates = maps_metadata_df.loc[i,"FROM_COORDINATES"]
+			from_coordinates = from_coordinates.split(",")
+
+			marker_color = get_marker_color(maps_data_df.loc[i,"FROM NODE TYPE"])
+			popup_html = """<b>""" + maps_data_df.loc[i,"FROM"] + """(""" + maps_data_df.loc[i,"FROM NODE TYPE"] + """)""" + """</b><br>NODE ID: """ + str(maps_data_df.loc[i,"FROM NODE ID"])
+			iframe = folium.IFrame(html=popup_html, width=popup_width, height=popup_height)
+			popup_object = folium.Popup(iframe, max_width=iframe_max_width)
+			feature_group.add_child(folium.Marker(location=from_coordinates,popup=popup_object,icon=folium.Icon(color=marker_color)))
+
+			number_of_amplifiers = maps_data_df.loc[i,"AMPLIFIERS"]
+			to_coordinates = maps_metadata_df.loc[i+number_of_amplifiers,"TO_COORDINATES"]
+			to_coordinates = to_coordinates.split(",")
+
+			marker_color = get_marker_color(maps_data_df.loc[i,"TO NODE TYPE"])
+			popup_html = """<b>""" + maps_data_df.loc[i,"TO"] + """(""" + maps_data_df.loc[i,"TO NODE TYPE"] + """)""" + """</b><br>NODE ID: """ + str(maps_data_df.loc[i,"TO NODE ID"])
+			iframe = folium.IFrame(html=popup_html, width=popup_width, height=popup_height)
+			popup_object = folium.Popup(iframe, max_width=iframe_max_width)
+			feature_group.add_child(folium.Marker(location=to_coordinates,popup=popup_object,icon=folium.Icon(color=marker_color)))
+
 			plot_amplifiers(i)
 
 		else:
