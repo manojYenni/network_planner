@@ -75,24 +75,11 @@ def flatten_data():
 # ------------------------------------------------------------------------------
 
 def plot_amplifiers(offset):
-	number_of_amplifiers = maps_data_df.loc[offset,"AMPLIFIERS"] + 1
+	number_of_amplifiers = maps_data_df.loc[offset,"AMPLIFIERS"]
 	for i in range(0, number_of_amplifiers):
-		maps_metadata_df.loc[offset+i, "FROM_EDITED"] = maps_data_df.loc[offset+i, "AMPLIFIER FROM"] + " ,India"
-		raw_location = nom.geocode(maps_metadata_df.loc[offset+i, "FROM_EDITED"])
-		maps_metadata_df.loc[offset+i,"FROM_COORDINATES"] =  str(raw_location.latitude) + "," + str(raw_location.longitude)
-
-		maps_metadata_df.loc[offset+i, "TO_EDITED"] = maps_data_df.loc[offset+i, "AMPLIFIER TO"] + " ,India"
-		raw_location = nom.geocode(maps_metadata_df.loc[offset+i, "TO_EDITED"])
-		maps_metadata_df.loc[offset+i,"TO_COORDINATES"] =  str(raw_location.latitude) + "," + str(raw_location.longitude)
-		# if i != 0:
-		# 	feature_group.add_child(folium.RegularPolygonMarker([raw_location.latitude, raw_location.longitude],popup=from_original, fill_color='#132b5e', number_of_sides=3, radius=10))
-		# else:
-		# 		marker_color = get_marker_color(maps_data_amp.loc[i,"FROM NODE TYPE"])
-		# 		feature_group.add_child(folium.Marker(location=[raw_location.latitude, raw_location.longitude],popup=from_original,icon=folium.Icon(color=marker_color)))
-
-		# maps_data_amp.loc[offset+i,"AMPLIFIER_TO_COORDINATES"] = nom.geocode(maps_data_amp.loc[offset+i, "AMPLIFIER TO"])
-
-	update_metadata_to_excel(maps_metadata_df, "Nodes_metadata")
+		to_coordinates = maps_metadata_df.loc[offset+i,"TO_COORDINATES"]
+		to_coordinates = to_coordinates.split(",")
+		feature_group.add_child(folium.RegularPolygonMarker(to_coordinates,popup="from_original", fill_color='#ff00f6', number_of_sides=3, radius=10,weight=1))
 
 # ------------------------------------------------------------------------------
 
