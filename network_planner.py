@@ -61,17 +61,20 @@ def update_metadata_to_excel(dataframe, sheetname):
 # ------------------------------------------------------------------------------
 
 def update_node_location_in_excel():
-	maps_metadata_df["FROM_EDITED"] = maps_data_df["FROM"] + ", India"
-	maps_metadata_df["FROM_COORDINATES"]= maps_metadata_df["FROM_EDITED"].apply(nom.geocode)
-	maps_metadata_df["FROM_COORDINATES"] = maps_metadata_df["FROM_COORDINATES"].apply(lambda x:str(x.latitude) + "," + str(x.longitude) if x != None else None )
 
-	maps_metadata_df["TO_EDITED"] = maps_data_df["TO"] + ", India"
-	maps_metadata_df["TO_COORDINATES"]= maps_metadata_df["TO_EDITED"].apply(nom.geocode)
-	maps_metadata_df["TO_COORDINATES"] = maps_metadata_df["TO_COORDINATES"].apply(lambda x:str(x.latitude) + "," + str(x.longitude) if x != None else None )
+	for i in maps_data_df.index:
+		if ((maps_data_df.loc[i,"AMPLIFIERS"] == "None") and (maps_data_df.loc[i,"AMPLIFIERS"] != "padding")):
+			
+			A = maps_data_df.loc[i,"FROM"] + ", India"
+			maps_metadata_df.loc[i,"FROM_EDITED"] = maps_data_df.loc[i,"FROM"] + ", India"
+			raw_location = nom.geocode(maps_metadata_df.loc[i,"FROM_EDITED"])
+			maps_metadata_df.loc[i,"FROM_COORDINATES"] = str(raw_location.latitude) + "," + str(raw_location.longitude)
+			
+			maps_metadata_df.loc[i,"TO_EDITED"] = maps_data_df.loc[i,"TO"] + ", India"
+			raw_location = nom.geocode(maps_metadata_df.loc[i,"TO_EDITED"])
+			maps_metadata_df.loc[i,"TO_COORDINATES"] = str(raw_location.latitude) + "," + str(raw_location.longitude)
+	
 	update_metadata_to_excel(maps_metadata_df, metadata_sheetname)
-	print("flattening")
-	column_header = list(maps_data_df.head(0))
-	cropped_header = column_header[0:9]
 
 # ------------------------------------------------------------------------------
 
@@ -199,6 +202,10 @@ def plot_node_markers():
 # ------------------------------------------------------------------------------
 
 ###################### MAIN ####################################################
+A = nom.geocode("Bengaluru, India")
+print("Bengaluru location: ")
+print(A)
+
 choice = input("Do you want to re-plot the coordinates?[y/n]: ")
 
 if choice == "y":
