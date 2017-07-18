@@ -67,6 +67,7 @@ def update_node_location_in_excel():
 			
 			A = maps_data_df.loc[i,"FROM"] + ", India"
 			maps_metadata_df.loc[i,"FROM_EDITED"] = maps_data_df.loc[i,"FROM"] + ", India"
+			print("plotting node for: ", maps_metadata_df.loc[i,"FROM_EDITED"])
 			raw_location = nom.geocode(maps_metadata_df.loc[i,"FROM_EDITED"])
 			maps_metadata_df.loc[i,"FROM_COORDINATES"] = str(raw_location.latitude) + "," + str(raw_location.longitude)
 			
@@ -87,13 +88,14 @@ def update_amplifier_location_in_excel():
 			for j in range(0, number_of_amplifiers):
 				maps_metadata_df.loc[offset+j, "FROM_EDITED"] = maps_data_df.loc[offset+j, "AMPLIFIER FROM"] + " ,India"
 				raw_location = nom.geocode(maps_metadata_df.loc[offset+j, "FROM_EDITED"])
+				print("plotting amplifier for: ", maps_metadata_df.loc[offset+j,"FROM_EDITED"])
 				maps_metadata_df.loc[offset+j,"FROM_COORDINATES"] =  str(raw_location.latitude) + "," + str(raw_location.longitude)
 
 				maps_metadata_df.loc[offset+j, "TO_EDITED"] = maps_data_df.loc[offset+j, "AMPLIFIER TO"] + " ,India"
 				raw_location = nom.geocode(maps_metadata_df.loc[offset+j, "TO_EDITED"])
 				maps_metadata_df.loc[offset+j,"TO_COORDINATES"] =  str(raw_location.latitude) + "," + str(raw_location.longitude)
 
-	update_metadata_to_excel(maps_metadata_df, "Nodes_metadata")
+	update_metadata_to_excel(maps_metadata_df, metadata_sheetname)
 
 
 # ------------------------------------------------------------------------------
