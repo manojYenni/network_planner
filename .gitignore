@@ -141,6 +141,7 @@ $RECYCLE.BIN/
 #Application related
 *.html
 *.json
+*.xls
 
 
 #Editplus
