@@ -142,8 +142,8 @@ $RECYCLE.BIN/
 *.html
 *.json
 *.xls
+*.ipynb
 
 
 #Editplus
 *.bak
-*.xlsx
