@@ -208,8 +208,6 @@ A = nom.geocode("Bengaluru, India")
 print("Bengaluru location: ")
 print(A)
 
-feature_group.add_child(folium.GeoJson(data=open("world.json","r",encoding="utf-8-sig")))
-
 choice = input("Do you want to re-plot the coordinates?[y/n]: ")
 
 if choice == "y":
