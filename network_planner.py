@@ -15,7 +15,8 @@ Bengaluru_location = [12.9791198,77.5912997]
 Default_location = Bengaluru_location
 
 Main_map_object = folium.Map(location=Default_location, tiles="Mapbox Bright")
-feature_group = folium.FeatureGroup(name = "my map")
+feature_group_links = folium.FeatureGroup(name = "NFS LINKS")
+feature_group_regions = folium.FeatureGroup(name = "NFS REGIONS")
 circular_marker_radius_in_pixel = 6
 popup_width = 150
 popup_height = 60
@@ -125,7 +126,7 @@ def plot_amplifiers(offset):
 		popup_html = """D: """ + str(maps_data_df.loc[offset+i,"AMPLIFIER DISTANCE"]) + """ km""" + """<br>LINK ID: """ + str(maps_data_df.loc[offset,"LINK ID"])
 		iframe = folium.IFrame(html=popup_html, width=popup_width, height=popup_height)
 		popup_object = folium.Popup(iframe, max_width=iframe_max_width)
-		feature_group.add_child(folium.PolyLine(locations=polyline_coordinates,weight=5,popup=popup_object))
+		feature_group_links.add_child(folium.PolyLine(locations=polyline_coordinates,weight=5,popup=popup_object))
 
 	# plotting markers for amplifiers
 	for i in range(0, number_of_amplifiers):
@@ -136,7 +137,7 @@ def plot_amplifiers(offset):
 		popup_html = """<b>""" + maps_data_df.loc[offset+i,"AMPLIFIER TO"] + """(""" + maps_data_df.loc[offset+i,"AMPLIFIER TYPE"] + """)""" + """</b><br>AMP ID: """ + str(maps_data_df.loc[offset+i,"AMPLIFIER ID"])
 		iframe = folium.IFrame(html=popup_html, width=popup_width, height=popup_height)
 		popup_object = folium.Popup(iframe, max_width=iframe_max_width)
-		feature_group.add_child(folium.RegularPolygonMarker(to_coordinates,popup=popup_object, fill_color=amplifier_color, number_of_sides=3, radius=10,weight=1))
+		feature_group_links.add_child(folium.RegularPolygonMarker(to_coordinates,popup=popup_object, fill_color=amplifier_color, number_of_sides=3, radius=10,weight=1))
 
 
 # ------------------------------------------------------------------------------
@@ -154,7 +155,7 @@ def plot_node_markers():
 			popup_html = """<b>""" + maps_data_df.loc[i,"FROM"] + """(""" + maps_data_df.loc[i,"FROM NODE TYPE"] + """)""" + """</b><br>NODE ID: """ + str(maps_data_df.loc[i,"FROM NODE ID"])
 			iframe = folium.IFrame(html=popup_html, width=popup_width, height=popup_height)
 			popup_object = folium.Popup(iframe, max_width=iframe_max_width)
-			feature_group.add_child(folium.Marker(location=from_coordinates,popup=popup_object,icon=folium.Icon(color=marker_color)))
+			feature_group_links.add_child(folium.Marker(location=from_coordinates,popup=popup_object,icon=folium.Icon(color=marker_color)))
 
 			to_coordinates = maps_metadata_df.loc[i,"TO_COORDINATES"]
 			to_coordinates = to_coordinates.split(",")
@@ -163,7 +164,7 @@ def plot_node_markers():
 			popup_html = """<b>""" + maps_data_df.loc[i,"TO"] + """(""" + maps_data_df.loc[i,"TO NODE TYPE"] + """)""" + """</b><br>NODE ID: """ + str(maps_data_df.loc[i,"TO NODE ID"])
 			iframe = folium.IFrame(html=popup_html, width=popup_width, height=popup_height)
 			popup_object = folium.Popup(iframe, max_width=iframe_max_width)
-			feature_group.add_child(folium.Marker(location=to_coordinates,popup=popup_object,icon=folium.Icon(color=marker_color)))
+			feature_group_links.add_child(folium.Marker(location=to_coordinates,popup=popup_object,icon=folium.Icon(color=marker_color)))
 
 			#Plotting PolyLines
 			coordinates_temp = from_coordinates + to_coordinates
@@ -172,7 +173,7 @@ def plot_node_markers():
 			popup_html = """D: """ + str(maps_data_df.loc[i,"DISTANCE"]) + """ km""" + """<br>LINK ID: """ + str(maps_data_df.loc[i,"LINK ID"])
 			iframe = folium.IFrame(html=popup_html, width=popup_width, height=popup_height)
 			popup_object = folium.Popup(iframe, max_width=iframe_max_width)
-			feature_group.add_child(folium.PolyLine(locations=polyline_coordinates,weight=5,popup=popup_object))
+			feature_group_links.add_child(folium.PolyLine(locations=polyline_coordinates,weight=5,popup=popup_object))
 
 		elif maps_data_df.loc[i,"AMPLIFIERS"] != "padding":
 			print("Plotting amplifiers for "+ maps_data_df.loc[i,"FROM"] )
@@ -184,7 +185,7 @@ def plot_node_markers():
 			popup_html = """<b>""" + maps_data_df.loc[i,"FROM"] + """(""" + maps_data_df.loc[i,"FROM NODE TYPE"] + """)""" + """</b><br>NODE ID: """ + str(maps_data_df.loc[i,"FROM NODE ID"])
 			iframe = folium.IFrame(html=popup_html, width=popup_width, height=popup_height)
 			popup_object = folium.Popup(iframe, max_width=iframe_max_width)
-			feature_group.add_child(folium.Marker(location=from_coordinates,popup=popup_object,icon=folium.Icon(color=marker_color)))
+			feature_group_links.add_child(folium.Marker(location=from_coordinates,popup=popup_object,icon=folium.Icon(color=marker_color)))
 
 			number_of_amplifiers = maps_data_df.loc[i,"AMPLIFIERS"]
 			to_coordinates = maps_metadata_df.loc[i+number_of_amplifiers,"TO_COORDINATES"]
@@ -194,7 +195,7 @@ def plot_node_markers():
 			popup_html = """<b>""" + maps_data_df.loc[i,"TO"] + """(""" + maps_data_df.loc[i,"TO NODE TYPE"] + """)""" + """</b><br>NODE ID: """ + str(maps_data_df.loc[i,"TO NODE ID"])
 			iframe = folium.IFrame(html=popup_html, width=popup_width, height=popup_height)
 			popup_object = folium.Popup(iframe, max_width=iframe_max_width)
-			feature_group.add_child(folium.Marker(location=to_coordinates,popup=popup_object,icon=folium.Icon(color=marker_color)))
+			feature_group_links.add_child(folium.Marker(location=to_coordinates,popup=popup_object,icon=folium.Icon(color=marker_color)))
 
 			plot_amplifiers(i)
 
@@ -225,8 +226,17 @@ elif choice == "n":
 else:
 	print("invalid choice")
 
+#-------------------------------------------------------------------------------
+print("Adding polygon layer..")
+polygon_data = open("IND1.geojson","r",encoding="utf-8-sig")
+style_function = lambda x: { "fillColor" : "green" if ((x["properties"]["NAME_1"] == "Karnataka") or (x["properties"]["NAME_1"] == "Maharashtra"))
+else "orange" }
+feature_group_regions.add_child(folium.GeoJson(polygon_data, style_function=style_function))
+
 # TODO
 #feature_group.add_child(folium.LatLngPopup())
 
-Main_map_object.add_child(feature_group)
+Main_map_object.add_child(feature_group_links)
+Main_map_object.add_child(feature_group_regions)
+Main_map_object.add_child(folium.LayerControl())
 Main_map_object.save("maps1.html")
